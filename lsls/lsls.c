@@ -11,6 +11,7 @@ int main(int argc, char **argv)
 {
     // Parse command line
     char *path = "./";
+    int path_free = 0;
     int ARG_POS_PATH = 1;
     if(argc > ARG_POS_PATH)
     {
@@ -19,6 +20,7 @@ int main(int argc, char **argv)
         int path_len = strlen(path);
         if(path[path_len-1] != '/')
         {
+            path_free = 1;
             char *full_path = malloc(path_len+1);
             strcpy(full_path, path);
             full_path[path_len] = '/';
@@ -74,5 +76,9 @@ int main(int argc, char **argv)
     }
     // Close directory
     closedir(directory_file);
+    if(path_free)
+    {
+        free(path);
+    }
     return 0;
 }
